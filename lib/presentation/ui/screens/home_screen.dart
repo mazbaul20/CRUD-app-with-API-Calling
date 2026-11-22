@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../widgets/product_info.dart';
+
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
@@ -13,11 +15,11 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       appBar: AppBar(title: Text("Todo"), backgroundColor: Colors.blue),
       body: Padding(
-        padding: const EdgeInsets.all(4.0),
+        padding: const EdgeInsets.all(6.0),
         child: Column(
           children: [
             SizedBox(
-              height: 220,
+              height: 250,
               width: double.infinity,
               child: Card(
                 color: Colors.grey.shade300,
@@ -26,29 +28,46 @@ class _HomeScreenState extends State<HomeScreen> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        "Product Name: Asus",
-                        style: TextStyle(fontSize: 24, fontWeight: .w700),
+                      ProductInfo(
+                        productTitle: "Product Name: Asus",
+                        fontSize: 24,
+                        fontWeight: .w700,
                       ),
-                      Text(
-                        "Product Code: #3291",
-                        style: TextStyle(fontSize: 18, fontWeight: .w700),
+                      ProductInfo(
+                        productTitle: "Product Code #3291",
+                        fontSize: 18,
+                        fontWeight: FontWeight.w700,
                       ),
-                      Text(
-                        "Image: image",
-                        style: TextStyle(fontSize: 18, fontWeight: .w700),
+                      ProductInfo(
+                        productTitle: "Image: image",
+                        fontSize: 18,
+                        fontWeight: FontWeight.w700,
                       ),
-                      Text(
-                        "Qty: 11",
-                        style: TextStyle(fontSize: 18, fontWeight: .w700),
+                      ProductInfo(
+                        productTitle: "Qty: 11",
+                        fontSize: 18,
+                        fontWeight: FontWeight.w700,
                       ),
-                      Text(
-                        "Unit Price: 2222",
-                        style: TextStyle(fontSize: 18, fontWeight: .w700),
+                      ProductInfo(
+                        productTitle: "Unit Price: 2222",
+                        fontSize: 18,
+                        fontWeight: FontWeight.w700,
                       ),
-                      Text(
-                        "Total Price: 5555",
-                        style: TextStyle(fontSize: 18, fontWeight: .w700),
+                      ProductInfo(
+                        productTitle: "Total Price: 5555",
+                        fontSize: 18,
+                        fontWeight: FontWeight.w700,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        spacing: 8,
+                        children: [
+                          IconButton(onPressed: () {}, icon: Icon(Icons.edit)),
+                          IconButton(
+                            onPressed: () {},
+                            icon: Icon(Icons.delete),
+                          ),
+                        ],
                       ),
                     ],
                   ),
