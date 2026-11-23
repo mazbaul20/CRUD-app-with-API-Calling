@@ -32,9 +32,13 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       body: Padding(
         padding: const EdgeInsets.all(6.0),
-        child: Column(
-          children: [
-            SizedBox(
+        child: ListView.separated(
+          separatorBuilder: (context, index) {
+            return const SizedBox(height: 8);
+          },
+          itemCount: 10,
+          itemBuilder: (context, index) {
+            return SizedBox(
               height: 250,
               width: double.infinity,
               child: Card(
@@ -135,8 +139,8 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                 ),
               ),
-            ),
-          ],
+            );
+          },
         ),
       ),
       floatingActionButton: FloatingActionButton(
