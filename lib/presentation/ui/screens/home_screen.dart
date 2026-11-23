@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:http/http.dart';
 
-import '../widgets/custom_text_form_field.dart';
 import '../widgets/product_info.dart';
 import '../widgets/update_product_dialog.dart';
 import 'add_product_screen.dart';
@@ -13,6 +13,8 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  Client http = Client();
+
   final TextEditingController _productNameController = TextEditingController();
   final TextEditingController _productCodeController = TextEditingController();
   final TextEditingController _productImageController = TextEditingController();
