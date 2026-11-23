@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../widgets/product_info.dart';
+import 'add_product_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -13,7 +14,11 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Todo"), backgroundColor: Colors.blue),
+      appBar: AppBar(
+        title: Text("Todo"),
+        backgroundColor: Colors.blue,
+        foregroundColor: Colors.white,
+      ),
       body: Padding(
         padding: const EdgeInsets.all(6.0),
         child: Column(
@@ -76,6 +81,17 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ],
         ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: Colors.blue,
+        foregroundColor: Colors.white,
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => AddProductScreen()),
+          );
+        },
+        child: Icon(Icons.add),
       ),
     );
   }
