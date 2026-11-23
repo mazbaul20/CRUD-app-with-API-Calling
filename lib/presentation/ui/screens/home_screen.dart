@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
+import '../widgets/custom_text_form_field.dart';
 import '../widgets/product_info.dart';
+import '../widgets/update_product_dialog.dart';
 import 'add_product_screen.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -11,6 +13,15 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  final TextEditingController _productNameController = TextEditingController();
+  final TextEditingController _productCodeController = TextEditingController();
+  final TextEditingController _productImageController = TextEditingController();
+  final TextEditingController _productQtyController = TextEditingController();
+  final TextEditingController _productUnitPriceController =
+      TextEditingController();
+  final TextEditingController _productTotalPriceController =
+      TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -67,9 +78,55 @@ class _HomeScreenState extends State<HomeScreen> {
                         mainAxisAlignment: MainAxisAlignment.end,
                         spacing: 8,
                         children: [
-                          IconButton(onPressed: () {}, icon: Icon(Icons.edit)),
                           IconButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              showDialog(
+                                context: context,
+                                builder: (context) {
+                                  return UpdateProductDialog(
+                                    nameController: _productNameController,
+                                    codeController: _productCodeController,
+                                    imageController: _productImageController,
+                                    qtyController: _productQtyController,
+                                    unitPriceController:
+                                        _productUnitPriceController,
+                                    totalPriceController:
+                                        _productTotalPriceController,
+                                    onUpdatePressed: () {
+                                      Navigator.pop(context);
+                                    },
+                                  );
+                                },
+                              );
+                            },
+                            icon: const Icon(Icons.edit),
+                          ),
+                          IconButton(
+                            onPressed: () {
+                              showDialog(
+                                context: context,
+                                builder: (context) {
+                                  return AlertDialog(
+                                    title: Text("Are you sure for delete?"),
+                                    content: Row(
+                                      mainAxisAlignment: .end,
+                                      children: [
+                                        TextButton(
+                                          onPressed: () {
+                                            Navigator.pop(context);
+                                          },
+                                          child: Text("No"),
+                                        ),
+                                        TextButton(
+                                          onPressed: () {},
+                                          child: Text("Yes"),
+                                        ),
+                                      ],
+                                    ),
+                                  );
+                                },
+                              );
+                            },
                             icon: Icon(Icons.delete),
                           ),
                         ],
