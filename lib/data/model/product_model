@@ -1,0 +1,45 @@
+class ProductModel {
+  final String? sId;
+  final String? productName;
+  final int? productCode;
+  final String? img;
+  final int? qty;
+  final int? unitPrice;
+  final int? totalPrice;
+
+  ProductModel({
+    this.sId,
+    this.productName,
+    this.productCode,
+    this.img,
+    this.qty,
+    this.unitPrice,
+    this.totalPrice,
+  });
+
+  // convert to map. save in database or send to API
+  Map<String, dynamic> toMap() {
+    return {
+      if (sId != null) '_id': sId,
+      if (productName != null) 'ProductName': productName,
+      if (productCode != null) 'ProductCode': productCode,
+      if (img != null) 'Img': img,
+      if (qty != null) 'Qty': qty,
+      if (unitPrice != null) 'UnitPrice': unitPrice,
+      if (totalPrice != null) 'TotalPrice': totalPrice,
+    };
+  }
+
+  // product object from map
+  factory ProductModel.fromMap(Map<String, dynamic> map) {
+    return ProductModel(
+      sId: map['_id'] as String?,
+      productName: map['ProductName'] as String?,
+      productCode: map['ProductCode'] as int?,
+      img: map['Img'] as String?,
+      qty: map['Qty'] as int?,
+      unitPrice: map['UnitPrice'] as int?,
+      totalPrice: map['TotalPrice'] as int?,
+    );
+  }
+}
