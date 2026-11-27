@@ -25,50 +25,52 @@ class UpdateProductDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     return AlertDialog(
       title: const Text("Update Product Details"),
-      content: Column(
-        spacing: 12,
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          CustomTextFormField(
-            controllerName: nameController,
-            hintText: "Product Name",
-          ),
-          CustomTextFormField(
-            controllerName: codeController,
-            hintText: "Product Code",
-          ),
-          CustomTextFormField(
-            controllerName: imageController,
-            hintText: "Image",
-          ),
-          CustomTextFormField(controllerName: qtyController, hintText: "Qty"),
-          CustomTextFormField(
-            controllerName: unitPriceController,
-            hintText: "Unit price",
-          ),
-          CustomTextFormField(
-            controllerName: totalPriceController,
-            hintText: "Total price",
-          ),
-          SizedBox(
-            width: double.infinity,
-            child: ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.blue,
-                foregroundColor: Colors.white,
-                padding: const EdgeInsets.symmetric(vertical: 13),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(12),
+      content: SingleChildScrollView(
+        child: Column(
+          spacing: 12,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            CustomTextFormField(
+              controllerName: nameController,
+              hintText: "Product Name",
+            ),
+            CustomTextFormField(
+              controllerName: codeController,
+              hintText: "Product Code",
+            ),
+            CustomTextFormField(
+              controllerName: imageController,
+              hintText: "Image",
+            ),
+            CustomTextFormField(controllerName: qtyController, hintText: "Qty"),
+            CustomTextFormField(
+              controllerName: unitPriceController,
+              hintText: "Unit price",
+            ),
+            CustomTextFormField(
+              controllerName: totalPriceController,
+              hintText: "Total price",
+            ),
+            SizedBox(
+              width: double.infinity,
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.blue,
+                  foregroundColor: Colors.white,
+                  padding: const EdgeInsets.symmetric(vertical: 13),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                ),
+                onPressed: onUpdatePressed,
+                child: const Text(
+                  "Update Product",
+                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
                 ),
               ),
-              onPressed: onUpdatePressed,
-              child: const Text(
-                "Update Product",
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
-              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

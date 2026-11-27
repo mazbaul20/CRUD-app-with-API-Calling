@@ -81,6 +81,55 @@ class _HomeScreenState extends State<HomeScreen> {
     setState(() {});
   }
 
+  Future<void> getProductByIdAndShowDialog(String productId) async {
+    Uri uri = Uri.parse(
+      'https://crud-api-ostad-live.onrender.com/api/v1/ReadProductById/$productId',
+    );
+    Response response = await http.get(uri);
+
+    if (response.statusCode == 200) {
+      final responseJson = jsonDecode(response.body);
+
+      if (responseJson['status'] == 'success' &&
+          responseJson['data'] != null &&
+          responseJson['data'].isNotEmpty) {
+        final productData = responseJson['data'][0];
+
+        _productNameController.text = productData['ProductName'] ?? '';
+        _productCodeController.text = (productData['ProductCode'] ?? '')
+            .toString();
+        _productImageController.text = productData['Img'] ?? '';
+        _productQtyController.text = (productData['Qty'] ?? '').toString();
+        _productUnitPriceController.text = (productData['UnitPrice'] ?? '')
+            .toString();
+        _productTotalPriceController.text = (productData['TotalPrice'] ?? '')
+            .toString();
+
+        if (!mounted) return;
+        showDialog(
+          context: context,
+          builder: (context) {
+            return UpdateProductDialog(
+              nameController: _productNameController,
+              codeController: _productCodeController,
+              imageController: _productImageController,
+              qtyController: _productQtyController,
+              unitPriceController: _productUnitPriceController,
+              totalPriceController: _productTotalPriceController,
+              onUpdatePressed: () {
+                Navigator.pop(context);
+              },
+            );
+          },
+        );
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text("Product data not found!")),
+        );
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -152,26 +201,8 @@ class _HomeScreenState extends State<HomeScreen> {
                               children: [
                                 IconButton(
                                   onPressed: () {
-                                    showDialog(
-                                      context: context,
-                                      builder: (context) {
-                                        return UpdateProductDialog(
-                                          nameController:
-                                              _productNameController,
-                                          codeController:
-                                              _productCodeController,
-                                          imageController:
-                                              _productImageController,
-                                          qtyController: _productQtyController,
-                                          unitPriceController:
-                                              _productUnitPriceController,
-                                          totalPriceController:
-                                              _productTotalPriceController,
-                                          onUpdatePressed: () {
-                                            Navigator.pop(context);
-                                          },
-                                        );
-                                      },
+                                    getProductByIdAndShowDialog(
+                                      productModel.data![index].sId ?? '',
                                     );
                                   },
                                   icon: const Icon(Icons.edit),
