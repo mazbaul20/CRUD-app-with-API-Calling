@@ -47,6 +47,36 @@ class _HomeScreenState extends State<HomeScreen> {
     setState(() {});
   }
 
+  Future<void> deleteProduct(ProductId) async {
+    isLoading = true;
+    setState(() {});
+
+    Uri uri = Uri.parse(
+      'https://crud-api-ostad-live.onrender.com/api/v1/DeleteProduct/${ProductId}',
+    );
+    Response response = await http.get(uri);
+    final responseJson = jsonDecode(response.body);
+    if (responseJson['status'] == 'success') {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text("Product Deleted Successfully"),
+          backgroundColor: Colors.green,
+        ),
+      );
+      Navigator.pop(context);
+      getAllProducts();
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text("Failed Successfully"),
+          backgroundColor: Colors.redAccent,
+        ),
+      );
+    }
+    isLoading = false;
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -161,7 +191,13 @@ class _HomeScreenState extends State<HomeScreen> {
                                                 child: Text("No"),
                                               ),
                                               TextButton(
-                                                onPressed: () {},
+                                                onPressed: () {
+                                                  deleteProduct(
+                                                    productModel
+                                                        .data![index]
+                                                        .sId,
+                                                  );
+                                                },
                                                 child: Text("Yes"),
                                               ),
                                             ],
@@ -191,7 +227,7 @@ class _HomeScreenState extends State<HomeScreen> {
             MaterialPageRoute(builder: (context) => AddProductScreen()),
           );
 
-          if(result == true){
+          if (result == true) {
             getAllProducts();
           }
         },
