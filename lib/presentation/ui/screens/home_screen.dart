@@ -43,6 +43,10 @@ class _HomeScreenState extends State<HomeScreen> {
     );
     Response response = await http.get(uri);
     productModel = ProductModel.fromJson(jsonDecode(response.body));
+
+    if (productModel.data != null) {
+      productModel.data = productModel.data!.reversed.toList();
+    }
     isLoading = false;
     setState(() {});
   }
