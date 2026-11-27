@@ -51,7 +51,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Todo"),
+        title: Text("CRUD"),
         backgroundColor: Colors.blue,
         foregroundColor: Colors.white,
       ),
@@ -185,11 +185,15 @@ class _HomeScreenState extends State<HomeScreen> {
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.blue,
         foregroundColor: Colors.white,
-        onPressed: () {
-          Navigator.push(
+        onPressed: () async {
+          final result = await Navigator.push(
             context,
             MaterialPageRoute(builder: (context) => AddProductScreen()),
           );
+
+          if(result == true){
+            getAllProducts();
+          }
         },
         child: Icon(Icons.add),
       ),
