@@ -117,6 +117,7 @@ class _HomeScreenState extends State<HomeScreen> {
               unitPriceController: _productUnitPriceController,
               totalPriceController: _productTotalPriceController,
               onUpdatePressed: () {
+                updateProduct(productId);
                 Navigator.pop(context);
               },
             );
@@ -128,6 +129,66 @@ class _HomeScreenState extends State<HomeScreen> {
         );
       }
     }
+  }
+
+  Future<void> updateProduct(productId) async {
+    isLoading = true;
+    setState(() {});
+
+    Uri uri = Uri.parse(
+      'https://crud-api-ostad-live.onrender.com/api/v1/UpdateProduct/$productId',
+    );
+
+    Response response = await http.post(
+      uri,
+      headers: {"Content-Type": "application/json"},
+      body: jsonEncode({
+        "ProductName": _productNameController.text,
+        "ProductCode": int.parse(_productCodeController.text).toInt(),
+        "Img": _productImageController.text,
+        "Qty": int.parse(_productQtyController.text).toInt(),
+        "UnitPrice": int.parse(_productUnitPriceController.text).toInt(),
+        "TotalPrice": int.parse(_productTotalPriceController.text).toInt(),
+      }),
+    );
+
+    final responseJson = jsonDecode(response.body);
+
+    if (responseJson['status'] == 'success') {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text("Product Updated Successfully"),
+          backgroundColor: Colors.green,
+        ),
+      );
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text("Failed Successfully"),
+          backgroundColor: Colors.redAccent,
+        ),
+      );
+    }
+    _productNameController.clear();
+    _productCodeController.clear();
+    _productImageController.clear();
+    _productQtyController.clear();
+    _productUnitPriceController.clear();
+    _productTotalPriceController.clear();
+    getAllProducts();
+    isLoading = false;
+    setState(() {});
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _productNameController.dispose();
+    _productCodeController.dispose();
+    _productImageController.dispose();
+    _productQtyController.dispose();
+    _productUnitPriceController.dispose();
+    _productTotalPriceController.dispose();
   }
 
   @override
